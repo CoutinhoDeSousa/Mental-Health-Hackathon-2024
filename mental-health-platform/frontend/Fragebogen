@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Intake Questionnaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="text"], 
+        input[type="email"], 
+        input[type="tel"], 
+        input[type="date"], 
+        select, 
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .checkbox-group {
+            margin-top: 10px;
+        }
+        .checkbox-group label {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="patientQuestionnaire">
+        <div class="form-section">
+            <h1>Patient Intake Questionnaire</h1>
+            <p>Please fill out the following information carefully and accurately.</p>
+        </div>
+
+        <div class="form-section">
+            <h2>Personal Information</h2>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+                <option value="prefer-not-to-say">Prefer not to say</option>
+            </select>
+
+            <label for="contactPhone">Phone Number:</label>
+            <input type="tel" id="contactPhone" name="contactPhone" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-section">
+            <h2>Medical History</h2>
+            <label>Do you have any existing medical conditions?</label>
+            <div class="checkbox-group">
+                <input type="checkbox" id="condition1" name="conditions" value="diabetes">
+                <label for="condition1">Diabetes</label>
+                <input type="checkbox" id="condition2" name="conditions" value="hypertension">
+                <label for="condition2">Hypertension</label>
+                <input type="checkbox" id="condition3" name="conditions" value="asthma">
+                <label for="condition3">Asthma</label>
+                <input type="checkbox" id="condition4" name="conditions" value="other">
+                <label for="condition4">Other</label>
+            </div>
+
+            <label for="otherConditions">If "Other", please specify:</label>
+            <textarea id="otherConditions" name="otherConditions" rows="3"></textarea>
+
+            <label>Current Medications:</label>
+            <textarea id="medications" name="medications" rows="3" placeholder="List all current medications, dosages, and frequency"></textarea>
+
+            <label>Allergies:</label>
+            <textarea id="allergies" name="allergies" rows="3" placeholder="List any known allergies to medications, foods, or environmental factors"></textarea>
+        </div>
+
+        <div class="form-section">
+            <h2>Additional Information</h2>
+            <label>Reason for Visit:</label>
+            <textarea id="reasonForVisit" name="reasonForVisit" rows="3" required></textarea>
+
+            <label for="insuranceProvider">Insurance Provider:</label>
+            <input type="text" id="insuranceProvider" name="insuranceProvider">
+
+            <label for="emergencyContactName">Emergency Contact Name:</label>
+            <input type="text" id="emergencyContactName" name="emergencyContactName" required>
+
+            <label for="emergencyContactPhone">Emergency Contact Phone:</label>
+            <input type="tel" id="emergencyContactPhone" name="emergencyContactPhone" required>
+        </div>
+
+        <div class="form-section">
+            <input type="submit" value="Submit Questionnaire">
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('patientQuestionnaire').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Questionnaire submitted successfully! (Note: This is a frontend demo - actual submission would require backend processing)');
+        });
+    </script>
+</body>
+</html>
