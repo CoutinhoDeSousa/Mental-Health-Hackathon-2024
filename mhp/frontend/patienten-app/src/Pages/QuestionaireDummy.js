@@ -1,10 +1,11 @@
 import { Model, Survey } from "survey-react-ui";
 import { useCallback, useEffect, useState } from "react";
+import Cookies from "js-cookie"; // Bibliothek für Cookie-Handling
 import 'survey-core/survey.min.css';
 
-
-const QuestionaireDummy = ({ fetchUrl, submitUrl, onComplete }) => {
+const QuestionaireDummy = ({ fetchUrl, onComplete }) => {
     const [surveyJson, setSurveyJson] = useState(null);
+
     // Fetch Survey JSON
     useEffect(() => {
         const fetchSurvey = async () => {
@@ -26,44 +27,33 @@ const QuestionaireDummy = ({ fetchUrl, submitUrl, onComplete }) => {
     // Callback for Survey Completion
     const surveyComplete = useCallback(
         (survey) => {
-            const userID = 5; // Example user ID
+            const userID = 5; // Beispiel-User-ID
             survey.setValue("userID", userID);
 
-            saveSurveyResults(survey.data, submitUrl);
+            saveSurveyResults(survey.data);
 
             if (onComplete) {
-                onComplete(); // 
+                onComplete();
             }
         },
-        [submitUrl, onComplete] // Added onComplete to the dependency array
+        [onComplete]
     );
 
-    // Save Survey Results Function
-    const saveSurveyResults = (json, url) => {
-        //console.log(json)
-        let data = translateResults(json)
-        console.log(data)
-        let title = fetchUrl.split("/").pop().replace(/_/g, "");
-        console.log(title)
-        fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=UTF-8",
-            },
-            body: JSON.stringify([
-                {questionnaire_id:title, result_string:data}
-            ]),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    alert("Antwort erfolgreich gespeichert");
-                } else {
-                    alert("Speichern fehlgeschlagen");
-                }
-            })
-            .catch((error) => {
-                alert(`Fehler beim Speichern: ${error.message}`);
-            });
+    // Save Survey Results in Cookie
+    const saveSurveyResults = (json) => {
+        const data = translateResults(json);
+        const title = fetchUrl.split("/").pop().replace(/_/g, "");
+
+        // Vorherige Ergebnisse lesen und aktualisieren
+        const existingResults = JSON.parse(Cookies.get("surveyResults") || "[]");
+        const updatedResults = [
+            ...existingResults,
+            { questionnaire_id: title, result_string: data },
+        ];
+
+        // Ergebnisse im Cookie speichern
+        Cookies.set("surveyResults", JSON.stringify(updatedResults), { expires: 7 }); // 7 Tage speichern
+        alert("Antwort erfolgreich im Cookie gespeichert");
     };
 
     // Render Survey
@@ -77,17 +67,13 @@ const QuestionaireDummy = ({ fetchUrl, submitUrl, onComplete }) => {
     return <Survey model={survey} />;
 };
 
-function translateResults(data){
-    console.log(data)
-    let output = "";
-    for (const key in data) {
-       //console.log(`${key}: ${data[key]}`);
-       if (key !== 'userID'){
-          output += `${key}${data[key]}`
-       }
-    }
-
-    return output
+// Hilfsfunktion: Ergebnisse in das gewünschte Format übersetzen
+function translateResults(data) {
+    const output = Object.entries(data)
+        .filter(([key]) => key !== "userID") // userID ausschließen
+        .map(([key, value]) => `${key}${value}`) // "key:value" Paare erstellen
+        .join(""); // aneinanderh#ngen
+    return output;
 }
 
 export default QuestionaireDummy;

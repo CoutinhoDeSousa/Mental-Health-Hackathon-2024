@@ -1,47 +1,53 @@
-import React from 'react';
-import GraphObject from './GraphObject';
+import React from "react";
+import { useLocation } from "react-router-dom"; // Für Zugriff auf die Server-Antwort
+import { QRCodeCanvas } from "qrcode.react"; // Für QR-Code-Generierung
+import GraphObject from "./GraphObject"; // Importiere Diagramm-Komponente
 
-const Ergebnis = ({ number, docmode = false}) => {
-    const data = [
-        {
-            category: 'Depression',
-            value: 30,
-            ranges: [
-                { label: 'nicht', range: [0, 20] },
-                { label: 'leicht', range: [20, 40] },
-                { label: 'mittel', range: [40, 60] },
-                { label: 'schwer', range: [60, 100] },
-            ],
-            digas: ['DiGa A', 'DiGa B', 'DiGa C'],
-            texts: {
-                arzt: 'Empfehlungen für Ärzte: Bitte überprüfen Sie die folgenden Optionen.',
-                nichtArzt: 'Hinweise für Patienten: Diese Optionen könnten hilfreich sein.',
-            },
+const Ergebnis = ({ mode }) => {
+    const location = useLocation();
+    const serverResponse = location.state?.serverResponse;
+
+    if (!serverResponse) {
+        return <p>Keine Daten verfügbar.</p>;
+    }
+
+    const { qr_code, questionnaires } = serverResponse;
+
+    // Daten für GraphObject aus der Server-Antwort extrahieren
+    const graphData = questionnaires.map((q) => ({
+        category: q.category,
+        value: q.score,
+        ranges: q.ranges.map((range) => ({
+            label: range.label,
+            range: range.range,
+            recommendation: range.recommendation,
+        })),
+        digas: q.ranges.map((range) => range.recommendation),
+        texts: {
+            arzt: `Aktueller Status: ${q.current_range.label}. Empfehlung: ${q.current_range.recommendation}`,
+            nichtArzt: `Hinweise: ${q.current_range.recommendation}`,
         },
-        {
-            category: 'Alkoholismus',
-            value: 50,
-            ranges: [
-                { label: 'nicht', range: [0, 30] },
-                { label: 'leicht', range: [30, 60] },
-                { label: 'mittel', range: [60, 80] },
-                { label: 'schwer', range: [80, 100] },
-            ],
-            digas: ['DiGa X', 'DiGa Y', 'DiGa Z'],
-            texts: {
-                arzt: 'Empfehlungen für Ärzte: Zusätzliche Diagnosen könnten sinnvoll sein.',
-                nichtArzt: 'Hinweise für Patienten: Prüfen Sie die Optionen.',
-            },
-        },
-    ];
+    }));
 
     return (
         <div>
             <h1>Ergebnis</h1>
-            <div style={{ marginBottom: '20px' }}>
-                <p><strong>Nummer:</strong> {number}</p>
-            </div>
-            <GraphObject data={data} mode={docmode} />
+
+            {/* Diagramme anzeigen */}
+            <GraphObject data={graphData} mode={mode} />
+
+            {/* QR-Code nur anzeigen, wenn mode === false */}
+            {mode === false && qr_code && (
+                <div style={{ marginTop: "30px", textAlign: "center" }}>
+                    <h3>QR-Code:</h3>
+                    <QRCodeCanvas
+                        value={qr_code} // QR-Code-Daten
+                        size={150}
+                        level={"H"}
+                        includeMargin={true}
+                    />
+                </div>
+            )}
         </div>
     );
 };

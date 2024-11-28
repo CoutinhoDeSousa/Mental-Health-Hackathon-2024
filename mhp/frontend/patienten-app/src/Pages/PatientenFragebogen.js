@@ -1,33 +1,74 @@
-import React from 'react';
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Für Navigation
+import Cookies from "js-cookie";
 import QuestionaireDummy from "./QuestionaireDummy";
 
 const PatientenFragebogen = () => {
-    const [showQuestionaire2, setShowQuestionaire2] = useState(false);
+    const [currentQuestionnaire, setCurrentQuestionnaire] = useState(0);
+    const navigate = useNavigate(); // Navigation verwenden
+    const questionnaires = [
+        {
+            id: "questionaire-1",
+            fetchUrl: "https://mhh24-backend.skimu.de/questionnaire/PHQ-9_",
+        },
+        {
+            id: "questionaire-2",
+            fetchUrl: "https://mhh24-backend.skimu.de/questionnaire/AUDIT-C_",
+        },
+        {
+            id: "questionaire-3",
+            fetchUrl: "https://mhh24-backend.skimu.de/questionnaire/GAD7_",
+        },
+    ];
+
+    const showNext = () => {
+        if (currentQuestionnaire < questionnaires.length - 1) {
+            setCurrentQuestionnaire(currentQuestionnaire + 1);
+        } else {
+            submitResults(); // Ergebnisse senden und weiterleiten
+        }
+    };
+
+    const submitResults = async () => {
+        const results = JSON.parse(Cookies.get("surveyResults") || "[]");
+        try {
+            const response = await fetch("https://mhh24-backend.skimu.de/results", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(results),
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log("Server-Antwort:", responseData);
+
+                // Weiterleitung zur Ergebnisseite mit den Daten
+                navigate("/ergebnis", { state: { serverResponse: responseData } });
+            } else {
+                alert(`Fehler beim Speichern: Status ${response.status}`);
+            }
+        } catch (error) {
+            alert(`Fehler beim Speichern: ${error.message}`);
+        }
+    };
 
     return (
         <div>
             <h1>Fragebogen</h1>
-            <div id='questionaire-1'>
-            <QuestionaireDummy
-                fetchUrl="https://mhh24-backend.skimu.de/questionnaire/PHQ-9_"
-                submitUrl="https://mhh24-backend.skimu.de/results?questionnaire_id=PHQ-9&result_string=a2b1c3d0e1f2g0h3i1"
-                onComplete= {() => setShowQuestionaire2(true)}  // Show the second questionnaire on completion
-            />
-            </div>
-            {/* <div id='questionaire-2'> */}
-            <div id='questionaire-2' hidden={!showQuestionaire2} >
-            <QuestionaireDummy
-                fetchUrl="https://mhh24-backend.skimu.de/questionnaire/AUDIT-C_"
-                submitUrl="https://mhh24-backend.skimu.de/results?questionnaire_id=PHQ-9&result_string=a2b1c3d0e1f2g0h3i1"
-            />
-            </div>
-            {/* <div id='questionaire-3' hidden>
-            <QuestionaireDummy
-                fetchUrl="https://mhh24-backend.skimu.de/questionnaire/GAD7"
-                submitUrl="https://mhh24-backend.skimu.de/questionnaire/submit"
-            />
-            </div> */}
+            {questionnaires.map((questionnaire, index) => (
+                <div
+                    key={questionnaire.id}
+                    id={questionnaire.id}
+                    hidden={index !== currentQuestionnaire}
+                >
+                    <QuestionaireDummy
+                        fetchUrl={questionnaire.fetchUrl}
+                        onComplete={showNext}
+                    />
+                </div>
+            ))}
         </div>
     );
 };
