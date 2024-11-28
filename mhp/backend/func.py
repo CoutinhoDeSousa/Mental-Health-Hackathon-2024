@@ -1,15 +1,12 @@
 import json
-import os
 from base64 import b64decode, b64encode
-from datetime import datetime
 from io import BytesIO
 
 import qrcode
 from cryptography.fernet import Fernet
 
-ENCRYPTION_KEY = os.getenv(
-    "ENCRYPTION_KEY", Fernet(b"abcdefghijklmnopqrstuvwxyz123456")
-)
+# Fester 32-Byte Base64-kodierter Schlüssel
+ENCRYPTION_KEY = b"vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3KL5BLyHY5M8="
 cipher_suite = Fernet(ENCRYPTION_KEY)
 
 
