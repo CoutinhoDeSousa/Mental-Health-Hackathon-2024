@@ -1,7 +1,9 @@
 import { Model, Survey } from "survey-react-ui";
 import { useCallback, useEffect, useState } from "react";
+import 'survey-core/survey.min.css';
 
-const QuestionaireDummy = ({ fetchUrl, submitUrl }) => {
+
+const QuestionaireDummy = ({ fetchUrl, submitUrl, onComplete }) => {
     const [surveyJson, setSurveyJson] = useState(null);
 
     // Fetch Survey JSON
@@ -29,8 +31,12 @@ const QuestionaireDummy = ({ fetchUrl, submitUrl }) => {
             survey.setValue("userID", userID);
 
             saveSurveyResults(survey.data, submitUrl);
+
+            if (onComplete) {
+                onComplete(); // 
+            }
         },
-        [submitUrl]
+        [submitUrl, onComplete] // Added onComplete to the dependency array
     );
 
     // Save Survey Results Function
