@@ -1,0 +1,43 @@
+{
+    "title": "Fragebogen für Patient:innen (GAD-7)",
+    "header": {
+      "instructions": "Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?",
+      "response_scale": {
+        "0": "Überhaupt nicht",
+        "1": "An einzelnen Tagen",
+        "2": "An mehr als der Hälfte der Tage",
+        "3": "Beinahe jeden Tag"
+      }
+    },
+    "questions": [
+      {
+        "id": "a",
+        "question": "Nervosität, Ängstlichkeit oder Anspannung"
+      },
+      {
+        "id": "b",
+        "question": "Nicht in der Lage sein, Sorgen zu stoppen oder zu kontrollieren"
+      },
+      {
+        "id": "c",
+        "question": "Übermäßige Sorgen bezüglich verschiedener Angelegenheiten"
+      },
+      {
+        "id": "d",
+        "question": "Schwierigkeiten zu entspannen"
+      },
+      {
+        "id": "e",
+        "question": "Rastlosigkeit, so dass Stillsitzen schwer fällt"
+      },
+      {
+        "id": "f",
+        "question": "Schnelle Verärgerung oder Gereiztheit"
+      },
+      {
+        "id": "g",
+        "question": "Gefühl der Angst, so als würde etwas Schlimmes passieren"
+      }
+    ]
+  }
+  

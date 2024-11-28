@@ -1,0 +1,51 @@
+{
+    "title": "Gesundheitsfragebogen für Patienten (PHQ-9)",
+    "header": {
+      "instructions": "Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?",
+      "response_scale": {
+        "0": "Überhaupt nicht",
+        "1": "An einzelnen Tagen",
+        "2": "An mehr als der Hälfte der Tage",
+        "3": "Beinahe jeden Tag"
+      }
+    },
+    "questions": [
+      {
+        "id": "a",
+        "question": "Wenig Interesse oder Freude an Ihren Tätigkeiten"
+      },
+      {
+        "id": "b",
+        "question": "Niedergeschlagenheit, Schwermut oder Hoffnungslosigkeit"
+      },
+      {
+        "id": "c",
+        "question": "Schwierigkeiten ein- oder durchzuschlafen oder vermehrter Schlaf"
+      },
+      {
+        "id": "d",
+        "question": "Müdigkeit oder Gefühl, keine Energie zu haben"
+      },
+      {
+        "id": "e",
+        "question": "Verminderter Appetit oder übermäßiges Bedürfnis zu essen"
+      },
+      {
+        "id": "f",
+        "question": "Schlechte Meinung von sich selbst; Gefühl, ein Versager zu sein oder die Familie enttäuscht zu haben"
+      },
+      {
+        "id": "g",
+        "question": "Schwierigkeiten, sich auf etwas zu konzentrieren, z.B. beim Zeitunglesen oder Fernsehen"
+      },
+      {
+        "id": "h",
+        "question": "Waren Ihre Bewegungen oder Ihre Sprache so verlangsamt, dass es auch anderen auffallen würde? Oder waren Sie im Gegenteil „zappelig“ oder ruhelos und hatten dadurch einen stärkeren Bewegungsdrang als sonst?"
+      },
+      {
+        "id": "i",
+        "question": "Gedanken, dass Sie lieber tot wären oder sich Leid zufügen möchten"
+      }
+    ]
+  }
+  
