@@ -6,7 +6,7 @@ def calculate_score(result_string):
     return sum(scores)
 
 
-def get_recommendation(score, questionnaire, result_file="result.json"):
+def get_recommendation(score, questionnaire, result_file="data/result.json"):
     with open(result_file, "r") as file:
         data = json.load(file)
 
