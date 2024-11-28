@@ -60,6 +60,7 @@ def get_qr_results():
         decrypted_data = decrypt_qr_data(encrypted_data)
         questionnaire_data = json.loads(decrypted_data)
 
+        # Verwende die gleiche Funktion wie bei der normalen Auswertung
         results = get_results_with_qr(questionnaire_data)
         return jsonify(results)
 

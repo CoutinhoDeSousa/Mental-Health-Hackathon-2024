@@ -90,10 +90,6 @@ def get_qr_code(data: str) -> bytes:
 def get_results_with_qr(questionnaire_data: list) -> dict:
     """
     Verarbeitet mehrere Fragebögen und erstellt eine Gesamtauswertung mit QR-Code
-
-    Args:
-        questionnaire_data: Liste von Dictionaries mit questionnaire_id und result_string
-        [{"questionnaire_id": "GAD-7", "result_string": "1234"}, ...]
     """
     with open("data/result_.json", "r") as file:
         all_results = json.load(file)
@@ -104,25 +100,30 @@ def get_results_with_qr(questionnaire_data: list) -> dict:
         questionnaire_id = item["questionnaire_id"].split("_")[0]
         result_string = item["result_string"]
 
-        # Finde den passenden Fragebogen
         result = next(
             (r for r in all_results if r["questionnaire"] == questionnaire_id), None
         )
         if result:
             score = calculate_score(result_string)
-            result_copy = result.copy()
-            result_copy["score"] = score
+            result_copy = {
+                "category": result["category"],
+                "questionnaire": result["questionnaire"],
+                "score": score,
+                "ranges": [
+                    {"label": r["label"], "range": r["range"]} for r in result["ranges"]
+                ],
+            }
 
-            # Finde die passende Empfehlung
-            for range_item in result_copy["ranges"]:
+            for range_item in result["ranges"]:
                 if range_item["range"][0] <= score <= range_item["range"][1]:
                     result_copy["current_range"] = range_item
                     break
 
             results["questionnaires"].append(result_copy)
 
-    # Erstelle einen einzigen QR-Code für alle Ergebnisse
-    encoded_data = encrypt_qr_data(json.dumps(questionnaire_data))
-    results["qr_code"] = encoded_data
+    # QR-Code als Base64-String generieren
+    encrypted_data = encrypt_qr_data(json.dumps(questionnaire_data))
+    qr_code_bytes = generate_qr_code(encrypted_data)
+    results["qr_code"] = b64encode(qr_code_bytes).decode("utf-8")
 
     return results
