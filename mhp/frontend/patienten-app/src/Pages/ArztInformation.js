@@ -1,10 +1,14 @@
 import React from 'react';
 
+//todo: responsive moving of image
 const ArztInformation = () => {
     return (
         <div>
             <h1>Arzt Information</h1>
-            <p>Hier können Ärzte wichtige Informationen über den Patienten einsehen.</p>
+            <img
+                        src="/data/standardablauf.png"
+                        alt="QR Code zum Fragebogen"
+            />
         </div>
     );
 };
