@@ -33,10 +33,33 @@ def get_questionnaire(id):
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
 
 
-@routes.route("/results", methods=["POST"])
-def get_results():
-    """Route für mehrere Fragebogen-Auswertungen"""
+@routes.route("/results", methods=["POST", "GET"])
+def handle_results():
+    """Route für Fragebogen-Auswertungen und gespeicherte Ergebnisse"""
     try:
+        # GET Request für gespeicherte Ergebnisse
+        if request.method == "GET":
+            save_id = request.args.get("save_id")
+            if not save_id:
+                return jsonify({"error": "Missing id parameter"}), 400
+
+            file_path = f"data/results/{save_id}.json"
+            if not os.path.exists(file_path):
+                return (
+                    jsonify(
+                        {
+                            "error": "Result not found",
+                            "message": f"No result found for ID {save_id}",
+                        }
+                    ),
+                    404,
+                )
+
+            with open(file_path, "r") as f:
+                result = json.load(f)
+            return jsonify(result)
+
+        # POST Request für neue Auswertungen
         data = request.get_json()
         if not data or not isinstance(data, list):
             return jsonify({"error": "Invalid input format"}), 400
@@ -52,32 +75,6 @@ def get_results():
                 json.dump(results, f)
 
         return jsonify(results)
-
-    except Exception as e:
-        return jsonify({"error": "Internal server error", "message": str(e)}), 500
-
-
-@routes.route("/results/<save_id>", methods=["GET"])
-def get_saved_result(save_id):
-    """Route für gespeicherte Ergebnisse abrufen"""
-    try:
-        file_path = f"data/results/{save_id}.json"
-
-        if not os.path.exists(file_path):
-            return (
-                jsonify(
-                    {
-                        "error": "Result not found",
-                        "message": f"No result found for ID {save_id}",
-                    }
-                ),
-                404,
-            )
-
-        with open(file_path, "r") as f:
-            result = json.load(f)
-
-        return jsonify(result)
 
     except Exception as e:
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
