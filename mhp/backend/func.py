@@ -1,25 +1,19 @@
 import json
-import os
 
 
-def get_filtered_results(questionnaire_id, result_string):
-    """Filtert Ergebnisse nach Fragebogen ID und Ergebnisstring"""
-    try:
-        file_path = f"data/results/{questionnaire_id}.json"
+def calculate_score(result_string):
+    scores = [int(char) for char in result_string if char.isdigit()]
+    return sum(scores)
 
-        if not os.path.exists(file_path):
+
+def get_recommendation(score, questionnaire, result_file="result.json"):
+    with open(result_file, "r") as file:
+        data = json.load(file)
+
+    for entry in data[questionnaire]:
+        start, end = map(int, entry["range"].split("-"))
+        if start <= score <= end:
             return {
-                "error": "Results not found",
-                "message": "No results found for questionnaire ID",
+                "description": entry["description"],
+                "recommendation": entry["recommendation"],
             }
-
-        with open(file_path, "r") as file:
-            results = json.load(file)
-
-        filtered_results = [
-            result for result in results if result["result_string"] == result_string
-        ]
-        return filtered_results
-
-    except Exception as e:
-        return {"error": "Internal server error", "message": str(e)}

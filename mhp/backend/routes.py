@@ -2,7 +2,7 @@ import json
 import os
 
 from flask import Blueprint, jsonify, request
-from func import get_filtered_results
+from func import calculate_score, get_recommendation
 
 routes = Blueprint("routes", __name__)
 
@@ -50,7 +50,8 @@ def get_results():
                 400,
             )
 
-        results = get_filtered_results(questionnaire_id, result_string)
+        score = calculate_score(result_string)
+        results = get_recommendation(score, questionnaire_id)
         return jsonify(results)
 
     except Exception as e:

@@ -1,0 +1,64 @@
+{
+    "GAD-7": [
+      {
+        "range": "0-4",
+        "description": "Minimale Angstssymptomatik",
+        "recommendation": "Psychoedukation"
+      },
+      {
+        "range": "5-9",
+        "description": "Mild ausgeprägte Angstssymptomatik",
+        "recommendation": "DIGA"
+      },
+      {
+        "range": "10-14",
+        "description": "Mittelgradig ausgeprägte Angstssymptomatik",
+        "recommendation": "DIGA + spezialisierte Behandlung"
+      },
+      {
+        "range": "15-21",
+        "description": "Schwer ausgeprägte Angstssymptomatik",
+        "recommendation": "DIGA + spezialisierte Behandlung"
+      }
+    ],
+    "PHQ-9": [
+      {
+        "range": "0-9",
+        "description": "Unauffällig",
+        "recommendation": "Psychoedukation"
+      },
+      {
+        "range": "10-14",
+        "description": "Leichtgradige Depression",
+        "recommendation": "DIGA"
+      },
+      {
+        "range": "15-19",
+        "description": "Mittelgradige Depression",
+        "recommendation": "DIGA + spezialisierte Behandlung"
+      },
+      {
+        "range": "20-27",
+        "description": "Schwergradige Depression",
+        "recommendation": "DIGA + spezialisierte Behandlung"
+      }
+    ],
+    "AUDIT-C": [
+      {
+        "range": "0-3",
+        "description": "Geringes Risiko für Alkoholkonsumstörung",
+        "recommendation": "Psychoedukation"
+      },
+      {
+        "range": "4-8",
+        "description": "Gefährlicher Alkoholkonsum",
+        "recommendation": "DIGA"
+      },
+      {
+        "range": "9-12",
+        "description": "Alkoholkonsumstörung",
+        "recommendation": "DIGA + spezialisierte Behandlung"
+      }
+    ]
+  }
+  
