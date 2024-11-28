@@ -3,7 +3,7 @@ import json
 import os
 
 from flask import Blueprint, jsonify, request, send_file
-from func import calculate_score, decrypt_qr_data, get_qr_code, get_recommendation
+from func import decrypt_qr_data, get_qr_code, get_results_with_qr
 
 routes = Blueprint("routes", __name__)
 
@@ -45,9 +45,7 @@ def get_results():
                 result_data = json.load(file)
             return jsonify(result_data)
 
-        score = calculate_score(result_string)
-        results = get_recommendation(score, questionnaire_id)
-        results["qr_code"] = get_qr_code(questionnaire_id, result_string)
+        results = get_results_with_qr(questionnaire_id, result_string)
         return jsonify(results)
 
     except Exception as e:
@@ -64,9 +62,7 @@ def get_qr_results():
             return jsonify({"error": "Missing data parameter"}), 400
 
         questionnaire_id, result_string = decrypt_qr_data(encrypted_data)
-        score = calculate_score(result_string)
-        results = get_recommendation(score, questionnaire_id)
-        results["qr_code"] = get_qr_code(questionnaire_id, result_string)
+        results = get_results_with_qr(questionnaire_id, result_string)
         return jsonify(results)
 
     except Exception as e:

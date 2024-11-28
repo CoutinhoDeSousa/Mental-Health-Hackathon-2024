@@ -6,8 +6,9 @@ from io import BytesIO
 import qrcode
 from cryptography.fernet import Fernet
 
-# Encryption key sollte sicher gespeichert werden (z.B. in Umgebungsvariablen)
-ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY", Fernet.generate_key())
+ENCRYPTION_KEY = os.getenv(
+    "ENCRYPTION_KEY", Fernet(b"abcdefghijklmnopqrstuvwxyz123456")
+)
 cipher_suite = Fernet(ENCRYPTION_KEY)
 
 
@@ -66,7 +67,6 @@ def generate_qr_code(data: str) -> bytes:
 
     img = qr.make_image(fill_color="black", back_color="white")
 
-    # Konvertiere das Bild in Bytes
     img_buffer = BytesIO()
     img.save(img_buffer, format="PNG")
     return img_buffer.getvalue()
@@ -77,3 +77,21 @@ def get_qr_code(questionnaire_id: str, result_string: str) -> bytes:
     Generiert einen QR-Code aus questionnaire_id und result_string und gibt ihn als Bytes zurück
     """
     return generate_qr_code(encrypt_qr_data(questionnaire_id, result_string))
+
+
+def get_results_with_qr(questionnaire_id: str, result_string: str) -> dict:
+    """
+    Berechnet Score, holt Empfehlungen und fügt QR-Code hinzu
+
+    Args:
+        questionnaire_id: ID des Fragebogens
+        result_string: String mit den Antworten
+
+    Returns:
+        dict: Ergebnisse mit Score, Empfehlungen und QR-Code
+    """
+    score = calculate_score(result_string)
+    results = get_recommendation(score, questionnaire_id)
+    results["qr_code"] = get_qr_code(questionnaire_id, result_string)
+    results["score"] = score
+    return results
