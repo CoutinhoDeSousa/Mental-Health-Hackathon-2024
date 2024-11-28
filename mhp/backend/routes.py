@@ -42,7 +42,63 @@ def get_results():
             return jsonify({"error": "Invalid input format"}), 400
 
         results = get_results_with_qr(data)
+
+        # Wenn query parameter vorhanden, speichere Ergebnis
+        save_id = request.args.get("save_id")
+        if save_id:
+            os.makedirs("data/results", exist_ok=True)
+            file_path = f"data/results/{save_id}.json"
+            with open(file_path, "w") as f:
+                json.dump(results, f)
+
         return jsonify(results)
+
+    except Exception as e:
+        return jsonify({"error": "Internal server error", "message": str(e)}), 500
+
+
+@routes.route("/results/<save_id>", methods=["GET"])
+def get_saved_result(save_id):
+    """Route für gespeicherte Ergebnisse abrufen"""
+    try:
+        file_path = f"data/results/{save_id}.json"
+
+        if not os.path.exists(file_path):
+            return (
+                jsonify(
+                    {
+                        "error": "Result not found",
+                        "message": f"No result found for ID {save_id}",
+                    }
+                ),
+                404,
+            )
+
+        with open(file_path, "r") as f:
+            result = json.load(f)
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"error": "Internal server error", "message": str(e)}), 500
+
+
+@routes.route("/results/list", methods=["GET"])
+def list_saved_results():
+    """Route für Liste aller gespeicherten Ergebnisse"""
+    try:
+        results_dir = "data/results"
+        if not os.path.exists(results_dir):
+            return jsonify([])
+
+        # Liste alle JSON-Dateien und entferne die .json Endung
+        saved_ids = [
+            f.replace(".json", "")
+            for f in os.listdir(results_dir)
+            if f.endswith(".json")
+        ]
+
+        return jsonify(saved_ids)
 
     except Exception as e:
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
