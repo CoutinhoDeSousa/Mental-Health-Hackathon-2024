@@ -5,5 +5,5 @@ services:
       context: ./mhp/backend
     container_name: mhh-backend
     ports:
-      - "8000:8000"
+      - "8005:8005"
 
