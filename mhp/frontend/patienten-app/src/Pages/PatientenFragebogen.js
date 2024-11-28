@@ -11,7 +11,7 @@ const PatientenFragebogen = () => {
             <div id='questionaire-1'>
             <QuestionaireDummy
                 fetchUrl="https://mhh24-backend.skimu.de/questionnaire/PHQ-9_"
-                submitUrl="https://mhh24-backend.skimu.de/questionnaire/submit"
+                submitUrl="https://mhh24-backend.skimu.de/results?questionnaire_id=PHQ-9&result_string=a2b1c3d0e1f2g0h3i1"
                 onComplete= {() => setShowQuestionaire2(true)}  // Show the second questionnaire on completion
             />
             </div>
@@ -19,7 +19,7 @@ const PatientenFragebogen = () => {
             <div id='questionaire-2' hidden={!showQuestionaire2} >
             <QuestionaireDummy
                 fetchUrl="https://mhh24-backend.skimu.de/questionnaire/AUDIT-C_"
-                submitUrl="https://mhh24-backend.skimu.de/questionnaire/submit"
+                submitUrl="https://mhh24-backend.skimu.de/results?questionnaire_id=PHQ-9&result_string=a2b1c3d0e1f2g0h3i1"
             />
             </div>
             {/* <div id='questionaire-3' hidden>

@@ -5,7 +5,6 @@ import 'survey-core/survey.min.css';
 
 const QuestionaireDummy = ({ fetchUrl, submitUrl, onComplete }) => {
     const [surveyJson, setSurveyJson] = useState(null);
-
     // Fetch Survey JSON
     useEffect(() => {
         const fetchSurvey = async () => {
@@ -41,12 +40,19 @@ const QuestionaireDummy = ({ fetchUrl, submitUrl, onComplete }) => {
 
     // Save Survey Results Function
     const saveSurveyResults = (json, url) => {
+        //console.log(json)
+        let data = translateResults(json)
+        console.log(data)
+        let title = fetchUrl.split("/").pop().replace(/_/g, "");
+        console.log(title)
         fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json;charset=UTF-8",
             },
-            body: JSON.stringify(json),
+            body: JSON.stringify([
+                {questionnaire_id:title, result_string:data}
+            ]),
         })
             .then((response) => {
                 if (response.ok) {
@@ -70,5 +76,18 @@ const QuestionaireDummy = ({ fetchUrl, submitUrl, onComplete }) => {
 
     return <Survey model={survey} />;
 };
+
+function translateResults(data){
+    console.log(data)
+    let output = "";
+    for (const key in data) {
+       //console.log(`${key}: ${data[key]}`);
+       if (key !== 'userID'){
+          output += `${key}${data[key]}`
+       }
+    }
+
+    return output
+}
 
 export default QuestionaireDummy;
