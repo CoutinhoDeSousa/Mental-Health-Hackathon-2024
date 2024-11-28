@@ -40,15 +40,9 @@ def get_results():
         result_string = request.args.get("result_string")
 
         if not questionnaire_id or not result_string:
-            return (
-                jsonify(
-                    {
-                        "error": "Missing parameters",
-                        "message": "Both questionnaire_id and result_string are required",
-                    }
-                ),
-                400,
-            )
+            with open("data/result.json", "r") as file:
+                result_data = json.load(file)
+            return jsonify(result_data)
 
         score = calculate_score(result_string)
         results = get_recommendation(score, questionnaire_id)
