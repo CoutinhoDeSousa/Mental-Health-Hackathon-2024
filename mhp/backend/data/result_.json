@@ -1,0 +1,76 @@
+[
+    {
+      "category": "Angstssymptomatik",
+      "questionnaire": "GAD-7",
+      "ranges": [
+        {
+          "label": "Minimale Angstssymptomatik",
+          "range": [0, 4],
+          "recommendation": "Psychoedukation"
+        },
+        {
+          "label": "Mild ausgeprägte Angstssymptomatik",
+          "range": [5, 9],
+          "recommendation": "DIGA"
+        },
+        {
+          "label": "Mittelgradig ausgeprägte Angstssymptomatik",
+          "range": [10, 14],
+          "recommendation": "DIGA + spezialisierte Behandlung"
+        },
+        {
+          "label": "Schwer ausgeprägte Angstssymptomatik",
+          "range": [15, 21],
+          "recommendation": "DIGA + spezialisierte Behandlung"
+        }
+      ]
+    },
+    {
+      "category": "Depression",
+      "questionnaire": "PHQ-9",
+      "ranges": [
+        {
+          "label": "Unauffällig",
+          "range": [0, 9],
+          "recommendation": "Psychoedukation"
+        },
+        {
+          "label": "Leichtgradige Depression",
+          "range": [10, 14],
+          "recommendation": "DIGA"
+        },
+        {
+          "label": "Mittelgradige Depression",
+          "range": [15, 19],
+          "recommendation": "DIGA + spezialisierte Behandlung"
+        },
+        {
+          "label": "Schwergradige Depression",
+          "range": [20, 27],
+          "recommendation": "DIGA + spezialisierte Behandlung"
+        }
+      ]
+    },
+    {
+      "category": "Alkoholkonsumstörung",
+      "questionnaire": "AUDIT-C",
+      "ranges": [
+        {
+          "label": "Geringes Risiko für Alkoholkonsumstörung",
+          "range": [0, 3],
+          "recommendation": "Psychoedukation"
+        },
+        {
+          "label": "Gefährlicher Alkoholkonsum",
+          "range": [4, 8],
+          "recommendation": "DIGA"
+        },
+        {
+          "label": "Alkoholkonsumstörung",
+          "range": [9, 12],
+          "recommendation": "DIGA + spezialisierte Behandlung"
+        }
+      ]
+    }
+  ]
+  

@@ -33,19 +33,15 @@ def get_questionnaire(id):
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
 
 
-@routes.route("/results")
+@routes.route("/results", methods=["POST"])
 def get_results():
-    """Route für gefilterte Ergebnisse"""
+    """Route für mehrere Fragebogen-Auswertungen"""
     try:
-        questionnaire_id = request.args.get("questionnaire_id").split("_")[0]
-        result_string = request.args.get("result_string")
+        data = request.get_json()
+        if not data or not isinstance(data, list):
+            return jsonify({"error": "Invalid input format"}), 400
 
-        if not questionnaire_id or not result_string:
-            with open("data/result.json", "r") as file:
-                result_data = json.load(file)
-            return jsonify(result_data)
-
-        results = get_results_with_qr(questionnaire_id, result_string)
+        results = get_results_with_qr(data)
         return jsonify(results)
 
     except Exception as e:
@@ -57,12 +53,14 @@ def get_qr_results():
     """Route für QR-Code Ergebnisse"""
     try:
         encrypted_data = request.args.get("data")
-
         if not encrypted_data:
             return jsonify({"error": "Missing data parameter"}), 400
 
-        questionnaire_id, result_string = decrypt_qr_data(encrypted_data)
-        results = get_results_with_qr(questionnaire_id, result_string)
+        # Entschlüssele die Daten
+        decrypted_data = decrypt_qr_data(encrypted_data)
+        questionnaire_data = json.loads(decrypted_data)
+
+        results = get_results_with_qr(questionnaire_data)
         return jsonify(results)
 
     except Exception as e:
