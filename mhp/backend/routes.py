@@ -11,7 +11,7 @@ routes = Blueprint("routes", __name__)
 def get_questionnaire(id):
     """Route für Fragenbogen abrufen"""
     try:
-        file_path = f"data/questionsheet/{id}.json"
+        file_path = f"data/questionnaire/{id}.json"
 
         if not os.path.exists(file_path):
             return (
