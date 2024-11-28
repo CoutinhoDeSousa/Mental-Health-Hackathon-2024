@@ -5,6 +5,7 @@ import PatientenFragebogen from './Pages/PatientenFragebogen';
 import Ergebnis from './Pages/Ergebnis';
 import ArztInformation from './Pages/ArztInformation';
 import ArztErgebnis from './Pages/ArztErgebnis';
+import QuestionaireDummy from "./Pages/QuestionaireDummy";
 
 const App = () => {
     return (
@@ -40,6 +41,9 @@ const App = () => {
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/arztergebnis">Arzt Ergebnis</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/questionairedummy">Questionaire Dummy</NavLink>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -51,6 +55,7 @@ const App = () => {
                     <Route path="/ergebnis" element={<Ergebnis />} />
                     <Route path="/arztinformation" element={<ArztInformation />} />
                     <Route path="/arztergebnis" element={<ArztErgebnis />} />
+                    <Route path="/questionairedummy" element={<QuestionaireDummy />} />
                 </Routes>
             </div>
         </Router>
