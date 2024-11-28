@@ -1,7 +1,8 @@
+import io
 import json
 import os
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, send_file
 from func import calculate_score, decrypt_qr_data, get_qr_code, get_recommendation
 
 routes = Blueprint("routes", __name__)
@@ -67,6 +68,23 @@ def get_qr_results():
         results = get_recommendation(score, questionnaire_id)
         results["qr_code"] = get_qr_code(questionnaire_id, result_string)
         return jsonify(results)
+
+    except Exception as e:
+        return jsonify({"error": "Internal server error", "message": str(e)}), 500
+
+
+@routes.route("/create_qr")
+def create_qr_code():
+    """Route für QR-Code erstellen"""
+    try:
+        data = request.args.get("data")
+
+        if not data:
+            return jsonify({"error": "Missing data parameter"}), 400
+
+        qr_code = get_qr_code(data)
+
+        return send_file(io.BytesIO(qr_code), mimetype="image/png")
 
     except Exception as e:
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
