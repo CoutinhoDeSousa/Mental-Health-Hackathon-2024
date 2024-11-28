@@ -2,7 +2,7 @@ version: '3.9'
 services:
   backend:
     build:
-      context: ./backend
+      context: ./mhp/backend
     container_name: mhh-backend
     ports:
       - "5000:5000"
