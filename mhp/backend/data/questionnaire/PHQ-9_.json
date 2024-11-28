@@ -1,0 +1,92 @@
+{
+    "title": "Gesundheitsfragebogen für Patienten (PHQ-9)",
+    "description": "Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?",
+    "pages": [
+      {
+        "questions": [
+          {
+            "type": "rating",
+            "name": "a",
+            "title": "Wenig Interesse oder Freude an Ihren Tätigkeiten",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "b",
+            "title": "Niedergeschlagenheit, Schwermut oder Hoffnungslosigkeit",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "c",
+            "title": "Schwierigkeiten ein- oder durchzuschlafen oder vermehrter Schlaf",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "d",
+            "title": "Müdigkeit oder Gefühl, keine Energie zu haben",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "e",
+            "title": "Verminderter Appetit oder übermäßiges Bedürfnis zu essen",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "f",
+            "title": "Schlechte Meinung von sich selbst; Gefühl, ein Versager zu sein oder die Familie enttäuscht zu haben",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "g",
+            "title": "Schwierigkeiten, sich auf etwas zu konzentrieren, z.B. beim Zeitunglesen oder Fernsehen",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "h",
+            "title": "Waren Ihre Bewegungen oder Ihre Sprache so verlangsamt, dass es auch anderen auffallen würde? Oder waren Sie im Gegenteil „zappelig“ oder ruhelos und hatten dadurch einen stärkeren Bewegungsdrang als sonst?",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "i",
+            "title": "Gedanken, dass Sie lieber tot wären oder sich Leid zufügen möchten",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          }
+        ]
+      }
+    ]
+  }
+  

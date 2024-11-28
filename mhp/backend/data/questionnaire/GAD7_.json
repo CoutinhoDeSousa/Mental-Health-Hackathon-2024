@@ -1,0 +1,74 @@
+{
+    "title": "Fragebogen für Patient:innen (GAD-7)",
+    "description": "Wie oft fühlten Sie sich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?",
+    "pages": [
+      {
+        "questions": [
+          {
+            "type": "rating",
+            "name": "a",
+            "title": "Nervosität, Ängstlichkeit oder Anspannung",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "b",
+            "title": "Nicht in der Lage sein, Sorgen zu stoppen oder zu kontrollieren",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "c",
+            "title": "Übermäßige Sorgen bezüglich verschiedener Angelegenheiten",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "d",
+            "title": "Schwierigkeiten zu entspannen",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "e",
+            "title": "Rastlosigkeit, so dass Stillsitzen schwer fällt",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "f",
+            "title": "Schnelle Verärgerung oder Gereiztheit",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "g",
+            "title": "Gefühl der Angst, so als würde etwas Schlimmes passieren",
+            "minRateDescription": "Überhaupt nicht",
+            "maxRateDescription": "Beinahe jeden Tag",
+            "rateValues": [0, 1, 2, 3],
+            "isRequired": true
+          }
+        ]
+      }
+    ]
+  }
+  

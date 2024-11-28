@@ -1,0 +1,38 @@
+{
+    "title": "Fragebogen für Patient:innen (AUDIT-C)",
+    "description": "Ein Glas Alkohol entspricht: 0,33 Liter Bier, 0,25 Liter Wein oder Sekt, 0,02 Liter Spirituosen. Sie finden nachfolgend Fragen, die sich auf Ihre Alkoholtrinkgewohnheiten beziehen. Bitte kreuzen Sie bei jeder Frage die Antwort an, die am ehesten zutrifft.",
+    "pages": [
+      {
+        "questions": [
+          {
+            "type": "rating",
+            "name": "a",
+            "title": "Wie oft trinken Sie Alkohol?",
+            "minRateDescription": "nie",
+            "maxRateDescription": "4 Mal oder öfter pro Woche",
+            "rateValues": [0, 1, 2, 3, 4],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "b",
+            "title": "Wenn Sie an einem Tag Alkohol trinken, wie viel alkoholhaltige Getränke trinken Sie dann typischerweise?",
+            "minRateDescription": "1 oder 2",
+            "maxRateDescription": "10 oder mehr",
+            "rateValues": [0, 1, 2, 3, 4],
+            "isRequired": true
+          },
+          {
+            "type": "rating",
+            "name": "c",
+            "title": "Wie oft haben Sie an einem Tag mehr als 6 alkoholische Getränke getrunken?",
+            "minRateDescription": "nie",
+            "maxRateDescription": "täglich oder fast täglich",
+            "rateValues": [0, 1, 2, 3, 4],
+            "isRequired": true
+          }
+        ]
+      }
+    ]
+  }
+  
