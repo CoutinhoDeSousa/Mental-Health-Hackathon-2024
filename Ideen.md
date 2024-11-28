@@ -43,6 +43,32 @@
 - Hab keine wirkliche Plattform dafür gefunden:
   - Eher so Programme an Schulen: https://www.mental-health-coaches.de/
 
+### Ablauf
+- Bedarf muss da sein
+- ärztlich Bescheinigen
+- Hilfsangebote suchen
+- Finaler Schritt Psychotherapie dauert oft mehrere Monate
+
+### Fokus
+- Hilfesuche Verhalten unterstützen
+- Austausch Peer-to-Peer (?)
+
+### Bedarf
+- Treatment Gap -> nicht nur durch fehlende Psychotherapieplätze, sondern auch dadurch, dass Leute nicht erreicht werden 
+- Bsp: Entäuschung -> natürliche Reaktion: Rückzug -> Psychische Störung: Problem kann langfristig nicht durch Lösungsmechanismus gelöst werden
+- Sprachbarriere Abbauen -> Bsp. Flüchtlingsangebot schaffen
+- Gibt wenig Psychologen die sich auf physische Einschränkungen zu verstehen wissen
+
+### Aktuelle Angebote:
+- Teletherapie -> über Videokonferenzen
+- Selbstmanagement -> wichtiger Ansatzpunkt für Unterstützung
+- deprexis als Beispiel
+- Die meisten Menschen wollen gerne aus eigener Kraft ihre Probleme angehen
+- Schwer Betroffene können auch mit Online Angebot gut erreicht werden
+
+### Ansätze
+- Decision Trees (Random Forest)
+- Recommender Systems
 
 
 ### Folge/nicht digitale Ansätze
