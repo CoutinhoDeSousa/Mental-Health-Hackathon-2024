@@ -38,6 +38,7 @@ def get_results():
     """Route für gefilterte Ergebnisse"""
     try:
         questionnaire_id = request.args.get("questionnaire_id")
+        questionnaire_id = questionnaire_id.split("_")[0] if questionnaire_id else None
         result_string = request.args.get("result_string")
 
         if not questionnaire_id or not result_string:
