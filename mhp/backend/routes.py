@@ -2,7 +2,9 @@ import io
 import json
 import os
 from base64 import b64decode
+from io import BytesIO
 
+import qrcode
 from flask import Blueprint, jsonify, request, send_file
 from func import decrypt_qr_data, encrypt_qr_data, get_qr_code, get_results_with_qr
 
@@ -154,9 +156,22 @@ def create_qr_code():
         if not data:
             return jsonify({"error": "Missing data parameter"}), 400
 
-        qr_code = get_qr_code(data)
+        # Direkte QR-Code Generierung ohne Verschlüsselung
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(data)
+        qr.make(fit=True)
 
-        return send_file(io.BytesIO(qr_code), mimetype="image/png")
+        img = qr.make_image(fill_color="black", back_color="white")
+        img_buffer = BytesIO()
+        img.save(img_buffer, format="PNG")
+        img_buffer.seek(0)
+
+        return send_file(img_buffer, mimetype="image/png")
 
     except Exception as e:
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
