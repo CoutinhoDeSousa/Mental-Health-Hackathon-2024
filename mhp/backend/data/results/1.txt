@@ -1,0 +1,130 @@
+{
+    "qr_code_url": "http://localhost:5000/create_qr?data=Z0FBQUFBQm5TYkJwZm92Ykl1Y3RyN0J0QWViR19QWjBNTXhPNUNVeWE3TmlxdElpTlVWa2xIZkR2N0EzWXQxbXA1N1RyS09aX3JvaDZTNHQ2SjFDZDRoZnM4Y2VhcEtEWThuTU1NbnM1RzVrcFdBZ3ZPejlQMy1fcU1wenJLMVI3c1hmVUZ2R1BGX0o3RGd0RGd4aUIzcUw1WHctYXZxdmxDa01KREdNQk9mUjVMRlVvdUJPNEQzVlVha3ppT05VY2d4di1xUldELXhUYTRqbUd6OUxPZlVfMzlqTW1DN2Fpdz09",
+    "questionnaires": [
+        {
+            "category": "Depression",
+            "current_range": {
+                "digas": [],
+                "label": "Unauffällig",
+                "range": [
+                    0,
+                    9
+                ],
+                "recommendation": "Ihr Ergebnis zeigt keine oder nur minimale depressive Symptome. Ich empfehle Ihnen Informationsmaterialien, um sich über Prävention und mentale Gesundheit zu informieren. Verschiedene Informationsangebote finden Sie hier: Link zur *(Psychoedukation)*."
+            },
+            "questionnaire": "PHQ-9",
+            "ranges": [
+                {
+                    "label": "Unauffällig",
+                    "range": [
+                        0,
+                        9
+                    ]
+                },
+                {
+                    "label": "Leichtgradig",
+                    "range": [
+                        10,
+                        14
+                    ]
+                },
+                {
+                    "label": "Mittelgradig",
+                    "range": [
+                        15,
+                        19
+                    ]
+                },
+                {
+                    "label": "Schwergradig",
+                    "range": [
+                        20,
+                        27
+                    ]
+                }
+            ],
+            "score": 1
+        },
+        {
+            "category": "Alkoholstörung",
+            "current_range": {
+                "digas": [],
+                "label": "Geringes Risiko",
+                "range": [
+                    0,
+                    3
+                ],
+                "recommendation": "Ihr Ergebnis zeigt ein geringes Risiko für problematischen Alkoholkonsum. Ich empfehle Ihnen Informationsmaterialien, um sich über gesunde Konsumgewohnheiten zu informieren. Verschiedene Informationsangebote finden Sie hier: Link zur *(Psychoedukation)*."
+            },
+            "questionnaire": "AUDIT-C",
+            "ranges": [
+                {
+                    "label": "Geringes Risiko",
+                    "range": [
+                        0,
+                        3
+                    ]
+                },
+                {
+                    "label": "Gefährlich",
+                    "range": [
+                        4,
+                        8
+                    ]
+                },
+                {
+                    "label": "Alkoholkonsumstörung",
+                    "range": [
+                        9,
+                        12
+                    ]
+                }
+            ],
+            "score": 0
+        },
+        {
+            "category": "Angstssymptomatik",
+            "current_range": {
+                "digas": [],
+                "label": "Minimal",
+                "range": [
+                    0,
+                    4
+                ],
+                "recommendation": "Ihr Ergebnis zeigt keine oder nur minimale Angstsymptome. Ich empfehle Ihnen Informationsmaterialien, um sich über Stressbewältigung und Prävention zu informieren. Verschiedene Informationsangebote finden Sie hier: Link zur *(Psychoedukation)*."
+            },
+            "questionnaire": "GAD7",
+            "ranges": [
+                {
+                    "label": "Minimal",
+                    "range": [
+                        0,
+                        4
+                    ]
+                },
+                {
+                    "label": "Mild ausgeprägt",
+                    "range": [
+                        5,
+                        9
+                    ]
+                },
+                {
+                    "label": "Mittelgradig ausgeprägt",
+                    "range": [
+                        10,
+                        14
+                    ]
+                },
+                {
+                    "label": "Schwer ausgeprägt",
+                    "range": [
+                        15,
+                        21
+                    ]
+                }
+            ],
+            "score": 0
+        }
+    ]
+}
