@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"; // Für Zugriff auf die Server-Antwort
 import { QRCodeCanvas } from "qrcode.react"; // Für QR-Code-Generierung
-import GraphObject from "./GraphObject"; // Importiere Diagramm-Komponente
+import GraphObject from "./GraphObject";
 
-const Ergebnis = ({ mode }) => {
+const Ergebnis = ({ searchString = "", mode = false }) => {
     const location = useLocation();
-    const serverResponse = location.state?.serverResponse;
+    const [serverResponse, setServerResponse] = useState(location.state?.serverResponse || null);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const getResult = async () => {
+            if (!searchString) return;
+
+            setLoading(true);
+            try {
+                const query = `https://mhh24-backend.skimu.de/results?save_id=${searchString}`;
+                const response = await fetch(query, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                console.log("vorläufige response arztergebnis", response)
+
+                if (response.ok) {
+                    const responseData = await response.json();
+                    setServerResponse(responseData);
+                    console.log("Server-Antwort:", responseData);
+                } else {
+                    alert(`Fehler beim Abrufen der Daten: Status ${response.status}`);
+                }
+            } catch (error) {
+                alert(`Fehler beim Abrufen der Daten: ${error.message}`);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (searchString) {
+            getResult();
+        }
+    }, [searchString]);
+
+    if (loading) {
+        return <p>Laden der Daten...</p>;
+    }
 
     if (!serverResponse) {
         return <p>Keine Daten verfügbar.</p>;
@@ -13,21 +52,24 @@ const Ergebnis = ({ mode }) => {
 
     const { qr_code, questionnaires } = serverResponse;
 
+    const buildGraphData = (response) => {
+        return response.questionnaires.map((item) => ({
+            category: item.category,
+            score: item.score,
+            recommendation: item.current_range?.recommendation || "",
+            digas: (item.current_range?.digas || []).map((diga) => ({
+                name: diga.diga_name,
+                link: diga.diga_link,
+            })),
+            ranges: item.ranges.map((range) => ({
+                label: range.label,
+                range: range.range,
+            })),
+        }));
+    };
+
     // Daten für GraphObject aus der Server-Antwort extrahieren
-    const graphData = questionnaires.map((q) => ({
-        category: q.category,
-        value: q.score,
-        ranges: q.ranges.map((range) => ({
-            label: range.label,
-            range: range.range,
-            recommendation: range.recommendation,
-        })),
-        digas: q.ranges.map((range) => range.recommendation),
-        texts: {
-            arzt: `Aktueller Status: ${q.current_range.label}. Empfehlung: ${q.current_range.recommendation}`,
-            nichtArzt: `Hinweise: ${q.current_range.recommendation}`,
-        },
-    }));
+    const graphData = buildGraphData(serverResponse);
 
     return (
         <div>
@@ -37,7 +79,7 @@ const Ergebnis = ({ mode }) => {
             <GraphObject data={graphData} mode={mode} />
 
             {/* QR-Code nur anzeigen, wenn mode === false */}
-            {mode === false && qr_code && (
+            {mode === false && qr_code && qr_code.length > 0 && (
                 <div style={{ marginTop: "30px", textAlign: "center" }}>
                     <h3>QR-Code:</h3>
                     <QRCodeCanvas

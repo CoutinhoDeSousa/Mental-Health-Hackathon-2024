@@ -44,12 +44,9 @@ const GraphObject = ({ data, mode }) => {
 
             // Farbskala (grün bis rot)
             const baseColors = ["#4CAF50", "#FFC107", "#FF5722", "#F44336"];
-            const numRanges = item.ranges.length;
-
             item.ranges.forEach((range, rangeIndex) => {
                 const startOffset = (range.range[0] / globalMax) * 100;
                 const endOffset = (range.range[1] / globalMax) * 100;
-                const midOffset = (startOffset + endOffset) / 2;
 
                 // Füge Farbverlauf hinzu
                 gradient
@@ -86,7 +83,7 @@ const GraphObject = ({ data, mode }) => {
             // Markiere den aktuellen Wert
             chartGroup
                 .append("circle")
-                .attr("cx", xScale(item.value))
+                .attr("cx", xScale(item.score))
                 .attr("cy", barHeight / 2)
                 .attr("r", 8)
                 .attr("fill", "#000")
@@ -116,47 +113,59 @@ const GraphObject = ({ data, mode }) => {
                         style={{ display: "block", marginBottom: "10px" }}
                     ></svg>
 
-                    {/* Arzt-/Patienten-Text */}
-                    {mode === "arzt" && (
-                        <div style={{ marginBottom: "10px", fontSize: "14px", color: "#555" }}>
-                            <strong>Zusätzliche Information für Ärzte:</strong> {item.texts.arzt}
-                        </div>
-                    )}
-                    {mode === "patient" && (
-                        <div style={{ marginBottom: "10px", fontSize: "14px", color: "#555" }}>
-                            <strong>Hinweise für Patienten:</strong> {item.texts.nichtArzt}
+                    {/* Recommendation */}
+                    {item.recommendation && (
+                        <div
+                            style={{
+                                marginBottom: "10px",
+                                fontSize: "14px",
+                                color: "#555",
+                                background: "#f9f9f9",
+                                padding: "10px",
+                                borderRadius: "5px",
+                            }}
+                        >
+                            <strong>Empfehlung:</strong> {item.recommendation}
                         </div>
                     )}
 
-                    {/* Empfehlungen */}
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-                            gap: "10px",
-                            background: "#f9f9f9",
-                            padding: "10px",
-                            borderRadius: "5px",
-                            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                        }}
-                    >
-                        {item.digas.map((diga, digaIndex) => (
-                            <div
-                                key={digaIndex}
-                                style={{
-                                    padding: "10px",
-                                    background: "#fff",
-                                    border: "1px solid #ccc",
-                                    borderRadius: "5px",
-                                    textAlign: "center",
-                                    cursor: "pointer",
-                                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-                                }}
-                            >
-                                {diga}
-                            </div>
-                        ))}
-                    </div>
+                    {/* DIGAs */}
+                    {item.digas && item.digas.length > 0 && (
+                        <div
+                            id="digas"
+                            style={{
+                                display: "grid",
+                                gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+                                gap: "10px",
+                                background: "#f9f9f9",
+                                padding: "10px",
+                                borderRadius: "5px",
+                                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                            }}
+                        >
+                            {item.digas.map((diga, digaIndex) => (
+                                <a
+                                    key={digaIndex}
+                                    href={diga.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                        padding: "10px",
+                                        background: "#fff",
+                                        border: "1px solid #ccc",
+                                        borderRadius: "5px",
+                                        textAlign: "center",
+                                        cursor: "pointer",
+                                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                                        textDecoration: "none",
+                                        color: "#333",
+                                    }}
+                                >
+                                    {diga.name}
+                                </a>
+                            ))}
+                        </div>
+                    )}
                 </div>
             ))}
         </div>
