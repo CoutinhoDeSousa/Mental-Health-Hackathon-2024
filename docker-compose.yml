@@ -6,21 +6,17 @@ services:
     container_name: mhh-backend
     ports:
       - "5000:5000"
-    volumes:
-      - ./mhp/backend:/app
-    mem_limit: "512m"
-    memswap_limit: "1g"
-    restart: unless-stopped
+
       
-  frontend:
-    build:
-      context: ./mhp/frontend
-    container_name: mhh-frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./mhp/frontend/patienten-app:/app
-      - /app/node_modules
-    depends_on:
-      - backend
+  # frontend:
+  #   build:
+  #     context: ./mhp/frontend
+  #   container_name: mhh-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./mhp/frontend/patienten-app:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - backend
 
