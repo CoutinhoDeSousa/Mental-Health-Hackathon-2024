@@ -1,4 +1,5 @@
 import json
+import zlib
 from base64 import b64decode, b64encode
 from io import BytesIO
 
@@ -33,26 +34,31 @@ def get_recommendation(score, questionnaire, result_file="data/result.json"):
 
 def encrypt_qr_data(data: str) -> str:
     """
-    Verschlüsselt die JSON-Daten für QR-Code
+    Verschlüsselt und komprimiert die JSON-Daten für QR-Code
 
     Args:
         data: JSON-String mit Fragebogendaten
     """
-    encrypted_data = cipher_suite.encrypt(data.encode())
+    # Komprimiere die Daten
+    compressed = zlib.compress(data.encode())
+    # Verschlüssele die komprimierten Daten
+    encrypted_data = cipher_suite.encrypt(compressed)
     return b64encode(encrypted_data).decode()
 
 
 def decrypt_qr_data(encrypted_data: str) -> str:
     """
-    Entschlüsselt die QR-Code-Daten und gibt JSON-String zurück
+    Entschlüsselt und dekomprimiert die QR-Code-Daten
 
     Args:
         encrypted_data: Verschlüsselter String aus QR-Code
     """
     try:
         decoded_data = b64decode(encrypted_data.encode())
-        decrypted_data = cipher_suite.decrypt(decoded_data).decode()
-        return decrypted_data
+        decrypted_data = cipher_suite.decrypt(decoded_data)
+        # Dekomprimiere die Daten
+        decompressed = zlib.decompress(decrypted_data)
+        return decompressed.decode()
     except Exception as e:
         raise ValueError(f"Ungültige verschlüsselte Daten: {str(e)}")
 
@@ -62,13 +68,13 @@ def generate_qr_code(data: str) -> bytes:
     Generiert einen QR-Code aus dem übergebenen String und gibt ihn als Bytes zurück
     """
     qr = qrcode.QRCode(
-        version=1,
+        version=None,  # Automatische Version-Auswahl
         error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=10,
         border=4,
     )
     qr.add_data(data)
-    qr.make(fit=True)
+    qr.make(fit=True)  # Passt die Version automatisch an die Datenmenge an
 
     img = qr.make_image(fill_color="black", back_color="white")
     img_buffer = BytesIO()
