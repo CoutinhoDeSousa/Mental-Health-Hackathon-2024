@@ -1,6 +1,7 @@
 import io
 import json
 import os
+from base64 import b64decode
 
 from flask import Blueprint, jsonify, request, send_file
 from func import decrypt_qr_data, get_qr_code, get_results_with_qr
@@ -44,7 +45,7 @@ def handle_results():
                 return jsonify({"error": "Missing save_id parameter"}), 400
 
             file_path = f"data/results/{save_id}.txt"
-            print(f"Trying to read from: {file_path}")  # Debug log
+            print(f"Trying to read from: {file_path}")
 
             if not os.path.exists(file_path):
                 return (
@@ -59,7 +60,18 @@ def handle_results():
 
             with open(file_path, "r") as f:
                 result = json.load(f)
-            return jsonify(result)
+
+            # QR-Code immer als PNG zurückgeben
+            if "qr_code" in result:
+                qr_bytes = b64decode(result["qr_code"])
+                return send_file(
+                    io.BytesIO(qr_bytes),
+                    mimetype="image/png",
+                    as_attachment=True,
+                    download_name=f"{save_id}_qr.png",
+                )
+            else:
+                return jsonify({"error": "No QR code found in result"}), 404
 
         # POST Request für neue Auswertungen
         data = request.get_json()
@@ -71,19 +83,19 @@ def handle_results():
         # Wenn query parameter vorhanden, speichere Ergebnis
         save_id = request.args.get("save_id")
         if save_id:
-            print(f"Saving results for ID: {save_id}")  # Debug log
+            print(f"Saving results for ID: {save_id}")
 
             try:
                 os.makedirs("data/results", exist_ok=True)
                 file_path = f"data/results/{save_id}.txt"
-                print(f"Writing to: {file_path}")  # Debug log
+                print(f"Writing to: {file_path}")
 
                 with open(file_path, "w") as f:
                     json.dump(results, f)
-                print(f"Successfully saved to {file_path}")  # Debug log
+                print(f"Successfully saved to {file_path}")
 
             except Exception as e:
-                print(f"Error saving file: {str(e)}")  # Debug log
+                print(f"Error saving file: {str(e)}")
                 return (
                     jsonify(
                         {
@@ -94,10 +106,11 @@ def handle_results():
                     500,
                 )
 
+        # Bei POST immer das JSON zurückgeben
         return jsonify(results)
 
     except Exception as e:
-        print(f"General error: {str(e)}")  # Debug log
+        print(f"General error: {str(e)}")
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
 
 
