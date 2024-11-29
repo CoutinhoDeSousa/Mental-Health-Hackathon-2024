@@ -61,11 +61,11 @@ def handle_results():
             with open(file_path, "r") as f:
                 result = json.load(f)
 
-            # QR-Code immer als PNG zurückgeben
+            # QR-Code als PNG generieren
             if "qr_code" in result:
-                qr_bytes = b64decode(result["qr_code"])
+                qr_code = get_qr_code(result["qr_code"])  # Direkt den String verwenden
                 return send_file(
-                    io.BytesIO(qr_bytes),
+                    io.BytesIO(qr_code),
                     mimetype="image/png",
                     as_attachment=True,
                     download_name=f"{save_id}_qr.png",
