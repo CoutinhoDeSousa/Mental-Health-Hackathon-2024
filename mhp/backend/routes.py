@@ -38,7 +38,7 @@ def get_questionnaire(id):
 def handle_results():
     """Route für Fragebogen-Auswertungen und gespeicherte Ergebnisse"""
     try:
-        base_url = request.host_url.rstrip("/")  # Entfernt trailing slash
+        base_url = request.host_url.rstrip("/")
 
         if request.method == "GET":
             save_id = request.args.get("save_id")
@@ -46,7 +46,6 @@ def handle_results():
                 return jsonify({"error": "Missing save_id parameter"}), 400
 
             file_path = f"data/results/{save_id}.txt"
-            print(f"Trying to read from: {file_path}")
 
             if not os.path.exists(file_path):
                 return (
@@ -61,18 +60,7 @@ def handle_results():
 
             with open(file_path, "r") as f:
                 result = json.load(f)
-
-            # QR-Code als PNG generieren
-            if "qr_code" in result:
-                qr_code = get_qr_code(result["qr_code"])  # Direkt den String verwenden
-                return send_file(
-                    io.BytesIO(qr_code),
-                    mimetype="image/png",
-                    as_attachment=True,
-                    download_name=f"{save_id}_qr.png",
-                )
-            else:
-                return jsonify({"error": "No QR code found in result"}), 404
+                return jsonify(result)
 
         # POST Request für neue Auswertungen
         data = request.get_json()
@@ -123,7 +111,7 @@ def list_saved_results():
         if not os.path.exists(results_dir):
             return jsonify([])
 
-        # Liste alle JSON-Dateien und entferne die .json Endung
+        # Liste alle .txt Dateien und entferne die .txt Endung
         saved_ids = [
             f.replace(".txt", "") for f in os.listdir(results_dir) if f.endswith(".txt")
         ]
