@@ -1,7 +1,7 @@
 [
     {
       "category": "Angstssymptomatik",
-      "questionnaire": "GAD-7",
+      "questionnaire": "GAD7",
       "ranges": [
         {
           "label": "Minimal",
