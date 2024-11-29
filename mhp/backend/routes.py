@@ -4,7 +4,7 @@ import os
 from base64 import b64decode
 
 from flask import Blueprint, jsonify, request, send_file
-from func import decrypt_qr_data, get_qr_code, get_results_with_qr
+from func import decrypt_qr_data, encrypt_qr_data, get_qr_code, get_results_with_qr
 
 routes = Blueprint("routes", __name__)
 
@@ -38,7 +38,8 @@ def get_questionnaire(id):
 def handle_results():
     """Route für Fragebogen-Auswertungen und gespeicherte Ergebnisse"""
     try:
-        # GET Request für gespeicherte Ergebnisse
+        base_url = request.host_url.rstrip("/")  # Entfernt trailing slash
+
         if request.method == "GET":
             save_id = request.args.get("save_id")
             if not save_id:
@@ -78,7 +79,7 @@ def handle_results():
         if not data or not isinstance(data, list):
             return jsonify({"error": "Invalid input format"}), 400
 
-        results = get_results_with_qr(data)
+        results = get_results_with_qr(data, base_url)
 
         # Wenn query parameter vorhanden, speichere Ergebnis
         save_id = request.args.get("save_id")
@@ -141,12 +142,15 @@ def get_qr_results():
         if not encrypted_data:
             return jsonify({"error": "Missing data parameter"}), 400
 
+        base_url = request.host_url.rstrip("/")  # Entfernt trailing slash
+
         # Entschlüssele die Daten
         decrypted_data = decrypt_qr_data(encrypted_data)
         questionnaire_data = json.loads(decrypted_data)
 
         # Verwende die gleiche Funktion wie bei der normalen Auswertung
-        results = get_results_with_qr(questionnaire_data)
+        results = get_results_with_qr(questionnaire_data, base_url)
+
         return jsonify(results)
 
     except Exception as e:

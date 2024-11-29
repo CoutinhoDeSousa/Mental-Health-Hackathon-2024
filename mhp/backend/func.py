@@ -87,9 +87,13 @@ def get_qr_code(data: str) -> bytes:
     return generate_qr_code(encrypted_data)
 
 
-def get_results_with_qr(questionnaire_data: list) -> dict:
+def get_results_with_qr(questionnaire_data: list, base_url: str) -> dict:
     """
     Verarbeitet mehrere Fragebögen und erstellt eine Gesamtauswertung mit QR-Code-URL
+
+    Args:
+        questionnaire_data: Liste der Fragebogendaten
+        base_url: Basis-URL des Servers
     """
     with open("data/result_.json", "r") as file:
         all_results = json.load(file)
@@ -121,9 +125,9 @@ def get_results_with_qr(questionnaire_data: list) -> dict:
 
             results["questionnaires"].append(result_copy)
 
-    # Generiere die URL für den QR-Code
+    # Generiere die URL für den QR-Code mit der übergebenen Basis-URL
     encrypted_data = encrypt_qr_data(json.dumps(questionnaire_data))
-    qr_code_url = f"http://localhost:5000/qr?data={encrypted_data}"
-    results["qr_code_url"] = qr_code_url  # Speichere die URL
+    qr_code_url = f"{base_url}/create_qr?data={encrypted_data}"
+    results["qr_code_url"] = qr_code_url
 
     return results
