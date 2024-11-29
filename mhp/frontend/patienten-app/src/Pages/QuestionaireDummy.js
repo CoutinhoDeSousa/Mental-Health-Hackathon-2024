@@ -46,10 +46,12 @@ const QuestionaireDummy = ({ fetchUrl, onComplete }) => {
 
         // Vorherige Ergebnisse lesen und aktualisieren
         const existingResults = JSON.parse(Cookies.get("surveyResults") || "[]");
-        const updatedResults = [
-            ...existingResults,
-            { questionnaire_id: title, result_string: data },
-        ];
+
+        // Ergebnis aktualisieren oder anhängen
+        const updatedResults = existingResults.filter(
+            (result) => result.questionnaire_id !== title
+        );
+        updatedResults.push({ questionnaire_id: title, result_string: data });
 
         // Ergebnisse im Cookie speichern
         Cookies.set("surveyResults", JSON.stringify(updatedResults), { expires: 7 }); // 7 Tage speichern

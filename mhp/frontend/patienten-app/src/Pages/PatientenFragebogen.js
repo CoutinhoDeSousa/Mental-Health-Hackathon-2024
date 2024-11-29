@@ -31,6 +31,7 @@ const PatientenFragebogen = () => {
 
     const submitResults = async () => {
         const results = JSON.parse(Cookies.get("surveyResults") || "[]");
+
         try {
             const response = await fetch("https://mhh24-backend.skimu.de/results", {
                 method: "POST",
@@ -39,13 +40,17 @@ const PatientenFragebogen = () => {
                 },
                 body: JSON.stringify(results),
             });
+            console.log(JSON.stringify(results));
 
             if (response.ok) {
                 const responseData = await response.json();
                 console.log("Server-Antwort:", responseData);
 
+                // Cookie löschen
+                Cookies.remove("surveyResults");
+
                 // Weiterleitung zur Ergebnisseite mit den Daten
-                navigate("/ergebnis", { state: { serverResponse: responseData } });
+                navigate("/patient/ergebnis", { state: { serverResponse: responseData } });
             } else {
                 alert(`Fehler beim Speichern: Status ${response.status}`);
             }
