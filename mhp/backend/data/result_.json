@@ -84,7 +84,7 @@
       ]
     },
     {
-      "category": "Alkoholkonsumstörung",
+      "category": "Alkoholstörung",
       "questionnaire": "AUDIT-C",
       "ranges": [
         {
@@ -102,7 +102,7 @@
           ]
         },
         {
-          "label": "Störung",
+          "label": "Alkoholkonsumstörung",
           "range": [9, 12],
           "recommendation": "Ihr Ergebnis deutet auf eine Alkoholkonsumstörung hin. Ich empfehle Ihnen das Aufsuchen eines spezialisierten Angebots wie z. B. einer Suchtberatung oder medizinischen Behandlung. Zur Überbrückung der Wartezeit, die ggf. entsteht, empfehle ich Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: vorvida.",
           "digas": [
