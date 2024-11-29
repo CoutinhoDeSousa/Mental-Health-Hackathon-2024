@@ -23,7 +23,7 @@ const PatientenStart = () => {
             <div className="d-flex flex-column align-items-center">
                 <Link to="/patient/fragebogen">
                     <img
-                        src="/data/dummy_qr.png"
+                        src="/data/qr_code_vorlaeufig.png"
                         alt="QR Code zum Fragebogen"
                         className="img-fluid mb-2"
                         style={{maxWidth: '150px'}}

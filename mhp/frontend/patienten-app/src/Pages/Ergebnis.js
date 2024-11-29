@@ -14,13 +14,14 @@ const Ergebnis = ({ searchString = "", mode = false }) => {
 
             setLoading(true);
             try {
-                const query = `https://mhh24-backend.skimu.de/results?${searchString}`;
+                const query = `https://mhh24-backend.skimu.de/results?save_id=${searchString}`;
                 const response = await fetch(query, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                     },
                 });
+                console.log("vorläufige response arztergebnis", response)
 
                 if (response.ok) {
                     const responseData = await response.json();
