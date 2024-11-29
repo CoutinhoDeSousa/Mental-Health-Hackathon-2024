@@ -1,25 +1,22 @@
-FROM node:18-alpine AS builder
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY ./patienten-app/package*.json ./
+COPY patienten-app/package*.json ./
 
-RUN npm install
+RUN npm install && \
+    npm install --save \
+    qrcode.react@3.1.0 \
+    js-cookie@3.0.5 \
+    survey-react-ui@1.9.116
 
-COPY ./patienten-app .
+RUN npm cache clean --force
 
-# Build für Produktion
-RUN npm run build
+COPY patienten-app/ .
 
-# Zweite Stage für kleineres Production Image
-FROM nginx:alpine
+ENV NODE_ENV=development
 
-# Nginx Konfiguration kopieren
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 3000
 
-# Build-Dateien kopieren
-COPY --from=builder /app/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"] 
+ENV WATCHPACK_POLLING=true
+CMD ["npm", "start"] 
