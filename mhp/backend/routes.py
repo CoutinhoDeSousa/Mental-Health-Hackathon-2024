@@ -38,15 +38,34 @@ def get_questionnaire(id):
 def handle_results():
     """Route für Fragebogen-Auswertungen und gespeicherte Ergebnisse"""
     try:
-        base_url = request.host_url.rstrip("/")  # Entfernt trailing slash
+        base_url = request.host_url.rstrip("/")
 
-        if request.method == "GET":
+        # POST Request für neue Auswertungen
+        if request.method == "POST":
+            data = request.get_json()
+            if not data or not isinstance(data, list):
+                return jsonify({"error": "Invalid input format"}), 400
+
+            results = get_results_with_qr(data, base_url)
+            save_id = request.args.get("save_id")
+
+            # Speichere Ergebnisse wenn save_id vorhanden
+            if save_id:
+                os.makedirs("data/results", exist_ok=True)
+                file_path = f"data/results/{save_id}.txt"
+                with open(file_path, "w") as f:
+                    json.dump(results, f)
+
+            # Gib immer die results zurück
+            return jsonify(results)
+
+        # GET Request für gespeicherte Ergebnisse
+        elif request.method == "GET":
             save_id = request.args.get("save_id")
             if not save_id:
                 return jsonify({"error": "Missing save_id parameter"}), 400
 
             file_path = f"data/results/{save_id}.txt"
-            print(f"Trying to read from: {file_path}")
 
             if not os.path.exists(file_path):
                 return (
@@ -60,58 +79,10 @@ def handle_results():
                 )
 
             with open(file_path, "r") as f:
-                result = json.load(f)
-
-            # QR-Code als PNG generieren
-            if "qr_code" in result:
-                qr_code = get_qr_code(result["qr_code"])  # Direkt den String verwenden
-                return send_file(
-                    io.BytesIO(qr_code),
-                    mimetype="image/png",
-                    as_attachment=True,
-                    download_name=f"{save_id}_qr.png",
-                )
-            else:
-                return jsonify({"error": "No QR code found in result"}), 404
-
-        # POST Request für neue Auswertungen
-        data = request.get_json()
-        if not data or not isinstance(data, list):
-            return jsonify({"error": "Invalid input format"}), 400
-
-        results = get_results_with_qr(data, base_url)
-
-        # Wenn query parameter vorhanden, speichere Ergebnis
-        save_id = request.args.get("save_id")
-        if save_id:
-            print(f"Saving results for ID: {save_id}")
-
-            try:
-                os.makedirs("data/results", exist_ok=True)
-                file_path = f"data/results/{save_id}.txt"
-                print(f"Writing to: {file_path}")
-
-                with open(file_path, "w") as f:
-                    json.dump(results, f)
-                print(f"Successfully saved to {file_path}")
-
-            except Exception as e:
-                print(f"Error saving file: {str(e)}")
-                return (
-                    jsonify(
-                        {
-                            "error": "Save failed",
-                            "message": f"Could not save results: {str(e)}",
-                        }
-                    ),
-                    500,
-                )
-
-        # Bei POST immer das JSON zurückgeben
-        return jsonify(results)
+                results = json.load(f)
+                return jsonify(results)
 
     except Exception as e:
-        print(f"General error: {str(e)}")
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
 
 
