@@ -4,13 +4,13 @@
       "questionnaire": "GAD-7",
       "ranges": [
         {
-          "label": "Minimale Angstssymptomatik",
+          "label": "Minimal",
           "range": [0, 4],
           "recommendation": "Ihr Ergebnis zeigt keine oder nur minimale Angstsymptome. Ich empfehle Ihnen Informationsmaterialien, um sich über Stressbewältigung und Prävention zu informieren. Verschiedene Informationsangebote finden Sie hier: Link zur *(Psychoedukation)*.",
           "digas": []
         },
         {
-          "label": "Mild ausgeprägte Angstssymptomatik",
+          "label": "Mild ausgeprägt",
           "range": [5, 9],
           "recommendation": "Ihr Ergebnis deutet auf milde Angstsymptome hin. Ich empfehle Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: Invirto - Die Therapie gegen Angst, Mindable: Panik & Agoraphobie, velibra.",
           "digas": [
@@ -20,7 +20,7 @@
           ]
         },
         {
-          "label": "Mittelgradig ausgeprägte Angstssymptomatik",
+          "label": "Mittelgradig ausgeprägt",
           "range": [10, 14],
           "recommendation": "Ihr Ergebnis deutet auf mittelgradige Angstsymptome hin. Ich empfehle Ihnen das Aufsuchen eines spezialisierten Angebots wie z. B. einer Psychotherapie oder psychiatrischen Behandlung. Zur Überbrückung der Wartezeit, die ggf. entsteht, empfehle ich Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: Invirto - Die Therapie gegen Angst, Mindable: Panik & Agoraphobie, velibra.",
           "digas": [
@@ -30,7 +30,7 @@
           ]
         },
         {
-          "label": "Schwer ausgeprägte Angstssymptomatik",
+          "label": "Schwer ausgeprägt",
           "range": [15, 21],
           "recommendation": "Ihr Ergebnis deutet auf ausgeprägte Angstsymptome hin. Ich empfehle Ihnen das Aufsuchen eines spezialisierten Angebots wie z. B. einer Psychotherapie oder psychiatrischen Behandlung. Zur Überbrückung der Wartezeit, die ggf. entsteht, empfehle ich Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: Invirto - Die Therapie gegen Angst, Mindable: Panik & Agoraphobie, velibra.",
           "digas": [
@@ -52,7 +52,7 @@
           "digas": []
         },
         {
-          "label": "Leichtgradige Depression",
+          "label": "Leichtgradig",
           "range": [10, 14],
           "recommendation": "Ihr Ergebnis deutet auf leichtgradige depressive Symptome hin. Ich empfehle Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: deprexis, edupression.com, My7steps App.",
           "digas": [
@@ -62,7 +62,7 @@
           ]
         },
         {
-          "label": "Mittelgradige Depression",
+          "label": "Mittelgradig",
           "range": [15, 19],
           "recommendation": "Ihr Ergebnis deutet auf mittelgradige depressive Symptome hin. Ich empfehle Ihnen das Aufsuchen eines spezialisierten Angebots wie z. B. einer Psychotherapie oder psychiatrischen Behandlung. Zur Überbrückung der Wartezeit, die ggf. entsteht, empfehle ich Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: deprexis, edupression.com, elona therapy Depression.",
           "digas": [
@@ -72,7 +72,7 @@
           ]
         },
         {
-          "label": "Schwergradige Depression",
+          "label": "Schwergradig",
           "range": [20, 27],
           "recommendation": "Ihr Ergebnis deutet auf schwergradige depressive Symptome hin. Ich empfehle Ihnen das Aufsuchen eines spezialisierten Angebots wie z. B. einer Psychotherapie oder psychiatrischen Behandlung. Zur Überbrückung der Wartezeit, die ggf. entsteht, empfehle ich Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: deprexis, edupression.com, elona therapy Depression.",
           "digas": [
@@ -88,13 +88,13 @@
       "questionnaire": "AUDIT-C",
       "ranges": [
         {
-          "label": "Geringes Risiko für Alkoholkonsumstörung",
+          "label": "Geringes Risiko",
           "range": [0, 3],
           "recommendation": "Ihr Ergebnis zeigt ein geringes Risiko für problematischen Alkoholkonsum. Ich empfehle Ihnen Informationsmaterialien, um sich über gesunde Konsumgewohnheiten zu informieren. Verschiedene Informationsangebote finden Sie hier: Link zur *(Psychoedukation)*.",
           "digas": []
         },
         {
-          "label": "Gefährlicher Alkoholkonsum",
+          "label": "Gefährlich",
           "range": [4, 8],
           "recommendation": "Ihr Ergebnis deutet auf riskanten Alkoholkonsum hin. Ich empfehle Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihren Alkoholkonsum zu reduzieren. Für Ihre Symptomatik kommen folgende DIGAs in Frage: vorvida.",
           "digas": [
@@ -102,7 +102,7 @@
           ]
         },
         {
-          "label": "Alkoholkonsumstörung",
+          "label": "Störung",
           "range": [9, 12],
           "recommendation": "Ihr Ergebnis deutet auf eine Alkoholkonsumstörung hin. Ich empfehle Ihnen das Aufsuchen eines spezialisierten Angebots wie z. B. einer Suchtberatung oder medizinischen Behandlung. Zur Überbrückung der Wartezeit, die ggf. entsteht, empfehle ich Ihnen die Nutzung einer digitalen Gesundheitsanwendung (DIGA). Diese Anwendung kann Ihnen helfen, durch strukturierte Übungen und wissenschaftlich fundierte Inhalte Ihre Symptome zu bewältigen. Für Ihre Symptomatik kommen folgende DIGAs in Frage: vorvida.",
           "digas": [
