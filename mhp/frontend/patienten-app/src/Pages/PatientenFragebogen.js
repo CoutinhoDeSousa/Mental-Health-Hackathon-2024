@@ -31,7 +31,7 @@ const PatientenFragebogen = () => {
 
     const submitResults = async () => {
         const results = JSON.parse(Cookies.get("surveyResults") || "[]");
-
+        console.log("Hier ist das result was niklas kriegt", results)
         try {
             const response = await fetch("https://mhh24-backend.skimu.de/results", {
                 method: "POST",
