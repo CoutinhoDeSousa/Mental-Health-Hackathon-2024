@@ -41,9 +41,11 @@ def handle_results():
         if request.method == "GET":
             save_id = request.args.get("save_id")
             if not save_id:
-                return jsonify({"error": "Missing id parameter"}), 400
+                return jsonify({"error": "Missing save_id parameter"}), 400
 
-            file_path = f"data/results/{save_id}.json"
+            file_path = f"data/results/{save_id}.txt"
+            print(f"Trying to read from: {file_path}")  # Debug log
+
             if not os.path.exists(file_path):
                 return (
                     jsonify(
@@ -69,14 +71,33 @@ def handle_results():
         # Wenn query parameter vorhanden, speichere Ergebnis
         save_id = request.args.get("save_id")
         if save_id:
-            os.makedirs("data/results", exist_ok=True)
-            file_path = f"data/results/{save_id}.json"
-            with open(file_path, "w") as f:
-                json.dump(results, f)
+            print(f"Saving results for ID: {save_id}")  # Debug log
+
+            try:
+                os.makedirs("data/results", exist_ok=True)
+                file_path = f"data/results/{save_id}.txt"
+                print(f"Writing to: {file_path}")  # Debug log
+
+                with open(file_path, "w") as f:
+                    json.dump(results, f)
+                print(f"Successfully saved to {file_path}")  # Debug log
+
+            except Exception as e:
+                print(f"Error saving file: {str(e)}")  # Debug log
+                return (
+                    jsonify(
+                        {
+                            "error": "Save failed",
+                            "message": f"Could not save results: {str(e)}",
+                        }
+                    ),
+                    500,
+                )
 
         return jsonify(results)
 
     except Exception as e:
+        print(f"General error: {str(e)}")  # Debug log
         return jsonify({"error": "Internal server error", "message": str(e)}), 500
 
 
@@ -90,9 +111,7 @@ def list_saved_results():
 
         # Liste alle JSON-Dateien und entferne die .json Endung
         saved_ids = [
-            f.replace(".json", "")
-            for f in os.listdir(results_dir)
-            if f.endswith(".json")
+            f.replace(".txt", "") for f in os.listdir(results_dir) if f.endswith(".txt")
         ]
 
         return jsonify(saved_ids)
